@@ -20,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
             opacity: 1
         }
     },
+    editIcon: {
+        position: 'absolute',
+        right: 40,
+        bottom: 10,
+        opacity: .5,
+        "&:hover": {
+            opacity: 1
+        }
+    },
     popoverGrid: {
         padding: 15
     },

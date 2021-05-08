@@ -5,11 +5,13 @@ const useStyles = makeStyles((theme) => ({
         padding: 15,
     },
     paper: {
-        height: 120,
+        paddingBottom: 20,
+        paddingTop: 20,
         width: "100%",
         display: 'flex',
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column"
 
     },
     inputGrid: {
@@ -18,7 +20,18 @@ const useStyles = makeStyles((theme) => ({
     btnGrid: {
         display: 'flex',
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        [theme.breakpoints.down("sm")]: {
+            padding: 10
+        }
+    },
+    infoGrid: {
+        marginBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    alert: {
+        width: "100%"
     }
 }));
 export default useStyles;

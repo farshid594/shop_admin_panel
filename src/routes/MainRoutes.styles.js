@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     paddingTop: 80,
+    [theme.breakpoints.down("xs")]: {
+      padding: 5,
+      paddingTop: 80,
+    }
   },
   toolbar: {
     display: "flex",

@@ -7,14 +7,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import useStyles from "./index.styles";
-import { Checkbox, CircularProgress, FormControl, FormControlLabel, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Tooltip, Typography } from "@material-ui/core";
+import { Checkbox, CircularProgress, FormControl, FormControlLabel, Grid, IconButton, InputLabel, MenuItem, Modal, Select, TextField, Tooltip, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import roleIcon from "../../assets/images/role.svg";
 import adminIcon from "../../assets/images/admin.svg";
 import userIcon from "../../assets/images/user.svg";
 import { Pagination, Skeleton } from "@material-ui/lab";
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import moment from 'moment'
+import RoleModal from "./RoleModal";
 
 export default function Users() {
 
@@ -36,6 +38,8 @@ export default function Users() {
   const [sortField, setSortFiled] = useState("createdAt")
   const [sortType, setSortType] = useState(1)
   const [page, setPage] = useState(1)
+  const [roleModalOpen, setRoleModalOpen] = useState(false)
+  const [selectedUserForRole, setSelectedUserForRole] = useState({})
 
   const [name, setName] = useState("")
   const [family, setFamily] = useState("")
@@ -160,25 +164,25 @@ export default function Users() {
     <>
       <Paper className={classes.SearchDiv}>
         <Grid container justify="center" alignItems="center"  >
-          <Grid item lg={3} className={classes.searchGrid} >
+          <Grid item lg={3} xs={12} className={classes.searchGrid} >
             <TextField
               value={name}
               onChange={(e) => setName(e.target.value)}
               variant="outlined" size="small" label="Search Name" fullWidth />
           </Grid>
-          <Grid item lg={3} className={classes.searchGrid} >
+          <Grid item lg={3} xs={12} className={classes.searchGrid} >
             <TextField
               value={family}
               onChange={(e) => setFamily(e.target.value)}
               variant="outlined" size="small" label="Search Family" fullWidth />
           </Grid>
-          <Grid item lg={3} className={classes.searchGrid} >
+          <Grid item lg={3} xs={12} className={classes.searchGrid} >
             <TextField
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               variant="outlined" size="small" label="Search Email" fullWidth />
           </Grid>
-          <Grid item lg={2} className={classes.searchGrid} >
+          <Grid item lg={2} xs={12} className={classes.searchGrid} >
             <FormControlLabel
               control={
                 <Checkbox
@@ -195,6 +199,7 @@ export default function Users() {
           </Grid>
         </Grid>
       </Paper>
+
       <div className={classes.sordDiv}  >
         <FormControl variant="outlined" size="small" className={classes.formControl}>
           <InputLabel htmlFor="age-native-simple">Sort By: </InputLabel>
@@ -282,6 +287,7 @@ export default function Users() {
           </Select>
         </FormControl>
       </div>
+
       <TableContainer component={Paper}>
         <Table className={classes.table}>
           <TableHead>
@@ -328,6 +334,7 @@ export default function Users() {
               </TableCell>
               <TableCell>Register Date</TableCell>
               <TableCell>status</TableCell>
+              <TableCell>role</TableCell>
               <TableCell>actions</TableCell>
             </TableRow>
           </TableHead>
@@ -350,6 +357,7 @@ export default function Users() {
                   <TableCell> {user.email} </TableCell>
                   <TableCell> {moment(user.createdAt, "YYYY-MM-DDTHH:mm:ss.140Z").format("MMMM Do YYYY")} </TableCell>
                   <TableCell> {user.isAdmin ? "admin" : "user"} </TableCell>
+                  <TableCell> {user.isAdmin ? "Super Admin" : user.role ? user.role.title : "not role"} </TableCell>
                   <TableCell>
                     <Tooltip title="Delete User">
                       <IconButton onClick={() => DeleteUser(user._id)}>
@@ -365,13 +373,28 @@ export default function Users() {
                         />
                       </IconButton>
                     </Tooltip>
+                    <Tooltip title="add role to user">
+                      <IconButton onClick={() => {
+                        setSelectedUserForRole(user)
+                        setRoleModalOpen(true)
+                      }
+                      }>
+                        <img
+                          src={roleIcon}
+                          alt=""
+                          className={classes.actionIcon}
+                        />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
+
         </Table>
       </TableContainer>
+
       <div className={classes.paginationDiv} >
         {pagesCount > 1 ? (
           <Pagination
@@ -381,6 +404,9 @@ export default function Users() {
             color="secondary" variant="outlined" count={pagesCount} />
         ) : null}
       </div>
+      <Modal open={roleModalOpen} onClose={() => setRoleModalOpen(false)} >
+        <RoleModal selectedUserForRole={selectedUserForRole} setRoleModalOpen={setRoleModalOpen} getUsers={getUsers} />
+      </Modal>
     </>
   );
 }

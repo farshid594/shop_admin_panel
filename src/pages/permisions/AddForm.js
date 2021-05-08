@@ -1,6 +1,7 @@
 import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField, Tooltip } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
 import useStyles from './addFrom.styles'
+import clsx from 'clsx';
 
 export default function AddForm({ getPermisions, selectedItemForEdit, setSelectedItemForEdit, isModal, setModalOpen }) {
     const classes = useStyles()
@@ -78,7 +79,7 @@ export default function AddForm({ getPermisions, selectedItemForEdit, setSelecte
     return (
         <Paper style={{ width: isModal ? 400 : "auto" }} className={classes.root} >
             <Grid container>
-                <Grid item lg={isModal ? 12 : 3} style={{ marginTop: isModal ? 15 : 0 }}>
+                <Grid item md={isModal ? 12 : 3} xs={12} className={clsx(classes.grid, { [classes.modalMaginToip]: isModal })}>
                     <TextField
                         value={title}
                         onChange={(e) => {
@@ -86,7 +87,7 @@ export default function AddForm({ getPermisions, selectedItemForEdit, setSelecte
                         }}
                         fullWidth size="small" variant="outlined" label="title" />
                 </Grid>
-                <Grid item lg={isModal ? 12 : 5} className={classes.checkboxesGrid} style={{ marginTop: isModal ? 15 : 0 }} >
+                <Grid item md={isModal ? 12 : 5} xs={12} className={clsx(classes.checkboxesGrid, { [classes.modalMaginToip]: isModal })} >
                     <Tooltip title="Create" >
                         <FormControlLabel
                             control={
@@ -185,7 +186,7 @@ export default function AddForm({ getPermisions, selectedItemForEdit, setSelecte
                     </Tooltip>
 
                 </Grid>
-                <Grid item lg={isModal ? 12 : 3} style={{ marginTop: isModal ? 15 : 0 }}>
+                <Grid item md={isModal ? 12 : 2} lg={isModal ? 12 : 3} xs={12} className={clsx(classes.grid, { [classes.modalMaginToip]: isModal })}>
                     <FormControl size="small" variant="outlined" fullWidth>
                         <InputLabel>Path</InputLabel>
                         <Select
@@ -202,15 +203,16 @@ export default function AddForm({ getPermisions, selectedItemForEdit, setSelecte
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item lg={isModal ? 12 : 1} style={{ marginTop: isModal ? 15 : 0 }} container justify="center" alignItems="center" >
+                <Grid item md={isModal ? 12 : 2} lg={isModal ? 12 : 1} xs={12} className={clsx(classes.grid, { [classes.modalMaginToip]: isModal })}
+                    container justify="center" alignItems="center" >
                     <Button onClick={selectedItemForEdit._id == undefined ? AddProccess : EditProccess}
-                        fullWidth={isModal}
+                        fullWidth={isModal || window.innerWidth < 900}
                         variant="contained" size="small" color="primary"   >
                         {selectedItemForEdit._id == undefined ? "Add" : "Edit"}
                     </Button>
                 </Grid>
             </Grid>
-        </Paper>
+        </Paper >
     )
 }
 

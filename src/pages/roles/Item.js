@@ -2,8 +2,9 @@ import { Button, Grid, IconButton, Paper, Popover, Typography } from '@material-
 import React, { useState, useRef } from 'react'
 import useStyles from './item.styles'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 
-export default function Item({ item, getRoles }) {
+export default function Item({ item, getRoles, setSelectedRoleForEdit }) {
     const classes = useStyles()
     const [open, setOpen] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,11 +27,14 @@ export default function Item({ item, getRoles }) {
     }
 
     return (
-        <Grid lg={3} className={classes.root} >
+        <Grid lg={3} sm={6} xs={12} className={classes.root} >
             <Paper className={classes.paper} >
                 <Typography variant="h5">
                     {item.title}
                 </Typography>
+                <IconButton onClick={(e) => { setSelectedRoleForEdit(item) }} color="secondary" size="small" className={classes.editIcon} >
+                    <EditIcon />
+                </IconButton>
                 <IconButton onClick={(e) => { setAnchorEl(e.currentTarget); setOpen(true) }} color="secondary" size="small" className={classes.deleteIcon} >
                     <DeleteIcon />
                 </IconButton>

@@ -5,6 +5,7 @@ import AddRole from './AddRole'
 
 export default function Index() {
   const [data, setData] = useState([])
+  const [selectedRoleForEdit, setSelectedRoleForEdit] = useState({})
   useEffect(() => {
     getRoles()
   }, [])
@@ -26,9 +27,9 @@ export default function Index() {
   }
   return (
     <Grid container>
-      <AddRole getRoles={getRoles} />
+      <AddRole selectedRoleForEdit={selectedRoleForEdit} setSelectedRoleForEdit={setSelectedRoleForEdit} getRoles={getRoles} />
       {data.map((item) => {
-        return <Item getRoles={getRoles} item={item} />
+        return <Item setSelectedRoleForEdit={setSelectedRoleForEdit} getRoles={getRoles} item={item} />
       })}
     </Grid>
   );

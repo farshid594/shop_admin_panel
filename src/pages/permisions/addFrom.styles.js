@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: 25,
         padding: 30
@@ -8,7 +8,18 @@ const useStyles = makeStyles({
     checkboxesGrid: {
         display: 'flex',
         justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down("sm")]: {
+            marginTop: 10
+        }
+    },
+    modalMaginToip: {
+        marginTop: 15
+    },
+    grid: {
+        [theme.breakpoints.down("sm")]: {
+            marginTop: 10
+        }
     }
-});
+}));
 export default useStyles;
