@@ -40,7 +40,6 @@ export default function Users() {
   const [page, setPage] = useState(1)
   const [roleModalOpen, setRoleModalOpen] = useState(false)
   const [selectedUserForRole, setSelectedUserForRole] = useState({})
-
   const [name, setName] = useState("")
   const [family, setFamily] = useState("")
   const [email, setEmail] = useState("")
