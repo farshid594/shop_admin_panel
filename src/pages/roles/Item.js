@@ -32,6 +32,8 @@ export default function Item({ item, getRoles, setSelectedRoleForEdit }) {
                 <Typography variant="h5">
                     {item.title}
                 </Typography>
+                <span>test2</span>
+                <div>test4</div>
                 <IconButton onClick={(e) => { setSelectedRoleForEdit(item) }} color="secondary" size="small" className={classes.editIcon} >
                     <EditIcon />
                 </IconButton>
