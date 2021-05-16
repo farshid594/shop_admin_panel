@@ -4,11 +4,14 @@ import useStyles from "./signin.styles";
 import adminIcon from "../../assets/images/admin-icon.svg";
 import { Alert } from "@material-ui/lab";
 import { LoginContext } from "../../contexts/LoginContext";
+import { AlertContext } from '../../components/Alert/AlertContext'
+
 import Apis from '../../constants/Apis'
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function Signin() {
+  let { showELS } = useContext(AlertContext)
   let { login } = useContext(LoginContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -19,6 +22,7 @@ export default function Signin() {
   const signinProccess = () => {
     if (emailRegex.test(email) && password.length > 5) {
       setError("");
+      showELS("loading")
       var status;
       fetch(Apis.SignInAsAdmin, {
         method: "POST",
@@ -37,9 +41,11 @@ export default function Signin() {
         .then((responseJson) => {
           console.log(status, responseJson);
           if (status === 404 || status === 500) {
+            showELS("error", responseJson.message)
             setError(responseJson.message);
           } else if (status === 200) {
             localStorage.setItem("token", responseJson.token);
+            showELS("success", responseJson.message)
             login();
           } else {
             setError("server error");
