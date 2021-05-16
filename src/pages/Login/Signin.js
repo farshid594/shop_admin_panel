@@ -4,6 +4,7 @@ import useStyles from "./signin.styles";
 import adminIcon from "../../assets/images/admin-icon.svg";
 import { Alert } from "@material-ui/lab";
 import { LoginContext } from "../../contexts/LoginContext";
+import Apis from '../../constants/Apis'
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -19,7 +20,7 @@ export default function Signin() {
     if (emailRegex.test(email) && password.length > 5) {
       setError("");
       var status;
-      fetch("http://localhost:8000/app/signin-as-admin", {
+      fetch(Apis.SignInAsAdmin, {
         method: "POST",
         body: JSON.stringify({
           email: email,

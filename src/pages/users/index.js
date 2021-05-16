@@ -20,17 +20,6 @@ import RoleModal from "./RoleModal";
 
 export default function Users() {
 
-  // // console.log("MOMENT");
-  // var date = "2021-04-15T15:11:20.173+00:00"
-  // // var fd = moment(date).format("MMMM Do YYYY")
-  // // console.log(fd);
-  // // var ft = moment(date, "YYYY-MM-DDTHH:mm:ss.140Z").format("HH:mm:ss a")
-  // // console.log(ft);
-  // // console.log(moment().format('hh:mm:ss a'));
-  // // console.log(moment().format('hh:mm:ss a'));
-  // // console.log(moment().diff(moment(date, "YYYY-MM-DDTHH:mm:ss.140Z"), "days"));
-  // console.log(moment().add(3, "days").format("MMMM Do YYYY"));
-
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [pagesCount, setPagesCount] = useState(0)

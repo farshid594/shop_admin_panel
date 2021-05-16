@@ -2,6 +2,7 @@ import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, Menu
 import React, { useState, useEffect } from 'react'
 import useStyles from './addFrom.styles'
 import clsx from 'clsx';
+import Apis from '../../constants/Apis'
 
 export default function AddForm({ getPermisions, selectedItemForEdit, setSelectedItemForEdit, isModal, setModalOpen }) {
     const classes = useStyles()
@@ -10,7 +11,7 @@ export default function AddForm({ getPermisions, selectedItemForEdit, setSelecte
     const [method, setMethod] = useState([])
     const AddProccess = () => {
         var status
-        fetch("http://localhost:8000/admin/permision", {
+        fetch(Apis.Permision, {
             method: "POST",
             headers: {
                 "Authorization": localStorage.token,
